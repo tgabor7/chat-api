@@ -7,6 +7,8 @@ app.get('/', (req,res)=>{
 	res.send('Hi')
 })
 
+app.static("/public", "/public")
+
 app.listen(port, ()=>{
 	console.log('App listenning on port 3000')
 })
