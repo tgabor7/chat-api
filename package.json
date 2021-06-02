@@ -1,0 +1,29 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "Backend for chat application",
+  "main": "app",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tgabor7/chat.git"
+  },
+  "keywords": [
+    "bakcend",
+    "api",
+    "node",
+    "express"
+  ],
+  "author": "Tarkó Gábor",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tgabor7/chat/issues"
+  },
+  "homepage": "https://github.com/tgabor7/chat#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
