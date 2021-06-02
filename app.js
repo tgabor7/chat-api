@@ -7,7 +7,7 @@ app.get('/', (req,res)=>{
 	res.send('Hi')
 })
 
-app.use('/', app.static("./public"))
+app.use('/', express.static('./public'))
 
 app.listen(port, ()=>{
 	console.log('App listenning on port 3000')
