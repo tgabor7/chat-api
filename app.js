@@ -4,6 +4,8 @@ const cors = require('cors')
 
 const port = process.env.PORT || 4000
 
+require('dotenv').config()
+
 var chatAPIRouter = require('./routes/chatAPI')
 var userAPIRouter = require('./routes/userAPI')
 
