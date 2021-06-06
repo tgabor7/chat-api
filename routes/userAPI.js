@@ -5,6 +5,19 @@ const UserModel = require('../models/UserModel');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken')
 
+
+router.get('/validateUser/:user', async (req, res)=>{
+	mongoose.connect(process.env.MONGOPATH, {useNewUrlParser: true}).catch(error => console.log(error))
+
+    const users = await UserModel.find({name: req.params.user})
+    if(users.length > 0) {
+        res.send("Username taken!")
+    }else{
+        res.send("ok")
+    }
+    mongoose.connection.close()
+
+})
 //login
 router.post('/login', async (req, res)=>{
 	mongoose.connect(process.env.MONGOPATH, {useNewUrlParser: true}).catch(error => console.log(error))
@@ -45,7 +58,7 @@ router.post('/register', async (req, res)=>{
             
         });
         user.save().then(data => {
-            res.json(data);
+            res.json("ok");
             mongoose.connection.close()
         })
         .catch(err => {
