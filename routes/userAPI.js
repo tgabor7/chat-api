@@ -6,6 +6,15 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken')
 
 
+router.get('/', async (req, res)=>{
+	mongoose.connect(process.env.MONGOPATH, {useNewUrlParser: true}).catch(error => console.log(error))
+    
+    const users = await UserModel.find().select('name')
+    res.send(users)
+    mongoose.connection.close()
+
+})
+
 router.get('/validateUser/:user', async (req, res)=>{
 	mongoose.connect(process.env.MONGOPATH, {useNewUrlParser: true}).catch(error => console.log(error))
 
@@ -36,6 +45,8 @@ router.post('/login', async (req, res)=>{
         }
     }catch(err){
         res.json(err)
+        mongoose.connection.close()
+
     }
     mongoose.connection.close()
 })
