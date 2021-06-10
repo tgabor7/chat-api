@@ -7,16 +7,13 @@ const jwt = require('jsonwebtoken')
 
 
 router.get('/', async (req, res)=>{
-	mongoose.connect(process.env.MONGOPATH, {useNewUrlParser: true}).catch(error => console.log(error))
     
     const users = await UserModel.find().select('name')
     res.send(users)
-    mongoose.connection.close()
 
 })
 
 router.get('/validateUser/:user', async (req, res)=>{
-	mongoose.connect(process.env.MONGOPATH, {useNewUrlParser: true}).catch(error => console.log(error))
 
     const users = await UserModel.find({name: req.params.user})
     if(users.length > 0) {
@@ -24,16 +21,15 @@ router.get('/validateUser/:user', async (req, res)=>{
     }else{
         res.send("ok")
     }
-    mongoose.connection.close()
 
 })
 //login
 router.post('/login', async (req, res)=>{
-	mongoose.connect(process.env.MONGOPATH, {useNewUrlParser: true}).catch(error => console.log(error))
     try{
         const user = await UserModel.find({name: req.body.name})
         if(user.length === 0){
             res.send("User not found")
+
             return
         }
         const validPass = await bcrypt.compare(req.body.password, user[0].password)
@@ -45,20 +41,16 @@ router.post('/login', async (req, res)=>{
         }
     }catch(err){
         res.json(err)
-        mongoose.connection.close()
 
     }
-    mongoose.connection.close()
 })
 
 //register
 router.post('/register', async (req, res)=>{
 
-	mongoose.connect(process.env.MONGOPATH, {useNewUrlParser: true}).catch(error => console.log(error))
 	const tmp = await UserModel.find({name: req.body.name})
     if(tmp.length > 0){
         res.send("Username taken")
-        mongoose.connection.close()
         return
     }
     bcrypt.hash(req.body.password, 1, function(err, hash) {
@@ -70,11 +62,9 @@ router.post('/register', async (req, res)=>{
         });
         user.save().then(data => {
             res.json("ok");
-            mongoose.connection.close()
         })
         .catch(err => {
             console.log(err);
-            mongoose.connection.close()
         });
     });
 })
