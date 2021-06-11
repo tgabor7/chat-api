@@ -3,8 +3,9 @@ const router = express.Router()
 const bcrypt = require('bcrypt')
 const mongoose = require('mongoose')
 const MessageModel = require('../models/MessageModel')
+const {verify} = require('../verifyToken')
 
-router.get('/get/:sender/:receiver', async (req, res)=>{
+router.get('/get/:sender/:receiver', verify, async (req, res)=>{
 	try{
 		const messages = await MessageModel.find({"$or":[{sender: req.params.sender, receiver: req.params.receiver},{sender: req.params.receiver, receiver: req.params.sender}]})
 		res.json(messages)
