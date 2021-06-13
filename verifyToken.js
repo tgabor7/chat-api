@@ -1,5 +1,4 @@
 const jwt = require("jsonwebtoken");
-const UserModel = require('./models/UserModel');
 
 function verify(req, res, next){
     const token = req.header('auth-token');
